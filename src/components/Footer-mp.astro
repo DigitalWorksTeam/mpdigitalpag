@@ -1,240 +1,337 @@
 ---
+
+import DWLogo from '/src/img/dwlogo.svg'
+import MPDigitalLogo from '/src/img/mpdigitallogo.svg'
+import HexaCube from '/src/img/hexacube.svg'
+
 const footerLinks = [
-  { href: '#hero', label: 'Inicio' },
+  { href: '#hero',        label: 'Inicio'      },
   { href: '#proveedores', label: 'Proveedores' },
-  { href: '#vendemos', label: 'Qué vendemos' },
-  { href: '#historia', label: 'Historia' },
+  { href: '#vendemos',    label: 'Qué vendemos'},
+  { href: '#historia',    label: 'Historia'    },
+];
+
+// ─── CARDS ────────────────────────────────────────────────────────────────────
+// Los tipos de cards ahora son un array editable
+// type: 'brand' | 'nav' | 'info'
+const footerCards = [
+  {
+    type: 'brand',
+    // contenido renderizado en el bloque {type === 'brand'} abajo
+  },
+  {
+    type: 'nav',
+    title: 'Navegación',
+    links: footerLinks,
+  },
+  {
+    type: 'info',
+    title: 'Contacto',
+    items: [
+      { text: 'dbo@mpdigital.cl', href: "#", external: false  },
+      { text: 'spl@mpdigital.cl', href: "#", external: false  },
+      { text: '+56 9 5520 5924', href: "#", external: false   },
+    ],
+  },
+  {
+    type: 'info',
+    title: 'Información',
+    items: [
+      { text: 'Operación estructurada para Mercado Público', href: "#", external: false  },
+      { text: 'Documentación disponible según requerimiento', href: "#", external: false },
+      { text: 'Descargar ficha empresa', href: '/MPDigital_Ficha_Empresa.pdf', external: true },
+    ],
+  },
 ];
 ---
 
-<footer class="site-footer" aria-labelledby="footer-title">
-  <div class="container footer-shell">
-    <div class="footer-intro">
-      <h4 class="footer-eyebrow"> MP Digital</h4>
+<footer class="site-footer" aria-labelledby="footer-eyebrow">
+  <div class="footer-shell">
 
-    </div>
+    <p id="footer-eyebrow" class="footer-eyebrow"><HexaCube class={"footer-cube-title"} /> MP Digital</p>
 
-    <div class="footer-content">
-      <section class="footer-card footer-brand-block" aria-label="Resumen de marca">
-        <img class="marca" src="/favicon.svg" alt="">
-        <p>
-          Abastecimiento y gestión comercial para Mercado Público.
-        </p>
-        
-      </section>
+    <!-- ── CARDS ── hace referencia a footerCards ── -->
+    <div class="footer-grid">
+      {footerCards.map((card) => (
+        <div class="footer-card">
 
-      <nav class="footer-card" aria-label="Navegación secundaria">
-        <p class="footer-card-title">Navegación</p>
-        <ul class="footer-links">
-          {footerLinks.map((link) => (
-            <li><a href={link.href}>{link.label}</a></li>
-          ))}
-        </ul>
-      </nav>
+          {card.type === 'brand' && (
+            <>
+              <MPDigitalLogo class={'footer-logo'} />
+              <p>Abastecimiento y gestión comercial para Mercado Público.</p>
+            </M>
+          )}
 
-      <section class="footer-card footer-highlight" aria-label="Mensaje de cierre">
-        <p class="footer-card-title">Contacto</p>
-        
-          <li>dbo@mpdigital.cl</li>
-          <li> spl@mpdigital.cl </li>
-          <li>+56 9 5520 5924</li>
-          
-          
-        
-        
-      </section>
+          {card.type === 'nav' && (
+            <>
+              <p class="footer-card-title">{card.title}</p>
 
-      <section class="footer-card footer-highlight" aria-label="Mensaje de cierre">
-        <p class="footer-card-title">Información</p>
-        <li>Operación estructurada para Mercado Público</li>
-        <li>Documentación disponible según requerimiento</li>
-        <li> <a href="/MPDigital_Ficha_Empresa.pdf" target="_blank">Descargar ficha empresa</a> </li>
+              <nav aria-label="Navegación secundaria">
+                <ul class="footer-info-list">
+                  {card.links?.map((link) => (
+                    <li>
+                      <a class="footer-links" href={link.href}>
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </>
+          )}
 
-        
-      </section>
+          {card.type === 'info' && (
+            <>
+              <p class="footer-card-title">{card.title}</p>
+              <ul class="footer-info-list">
+                {card.items?.map((item) =>
+                  item.href ? (
+                    <li>
+                      <a
+                        class="footer-links"
+                        href={item.href}
+                        {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      >
+                        {item.text}
+                      </a>
+                    </li>
+                  ) : (
+                    <li>{item.text}</li>
+                  )
+                )}
+              </ul>
+            </>
+          )}
+
+        </div>
+      ))}
     </div>
 
     <div class="footer-bottom">
       <p>© 2026 MP Digital. Todos los derechos reservados.</p>
-      <p>Parte de <a href="https://digitalworks.cl/" target="_blank">DigitalWorks.</a><small>Diseño y desarrollo interno</small></p>
-      
+
+        <div class="footer-signature">
+          <span>
+            Parte de
+            <a
+              href="https://digitalworks.cl/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-dw-logo"
+            >
+              <DWLogo />
+            </a>
+          </span>
+
+          <small>Diseño y desarrollo interno</small>
+        </div>
     </div>
   </div>
 </footer>
 
 <style>
+  /* ── DESIGN TOKENS ──────────────────────────────────────────────────────── */
+  :root {
+    --footer-accent:     #c9894b;
+    --footer-text:       #c7d1db;
+    --footer-bg-from:    #0f1720;
+    --footer-bg-to:      #111b26;
+    --footer-card-bg:    rgba(255, 255, 255, 0.035);
+    --footer-border:     rgba(255, 255, 255, 0.08);
+    --footer-radius:     15px;
+    --footer-pad:        2rem;
+    --footer-gap:        1.25rem;
+
+    /* ── COLUMNAS DE CARDS ─────────────────────────────────────────────────── */
+    /* En movil siempre caen a una columna */
+    --footer-cols: 4;
+  }
+
+  /* ── ESTRUCTURA ─────────────────────────────────────────────────────────── */
   .site-footer {
     background:
       radial-gradient(circle at top, rgba(201, 137, 75, 0.12), transparent 30%),
-      linear-gradient(180deg, #0f1720 0%, #111b26 100%);
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+      linear-gradient(180deg, var(--footer-bg-from) 0%, var(--footer-bg-to) 100%);
+    border-top: 1px solid var(--footer-border);
   }
 
   .footer-shell {
-    width: auto;
-    height: 300px;
-    padding: 2rem;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding: var(--footer-pad);
   }
 
-  .footer-intro {
-    max-width: 760px;
-    margin-bottom: 2.5rem;
-  }
-
-  .footer-eyebrow,
-  .footer-card-title,
-  .footer-badge,
-  .footer-bottom p:last-child {
+  /* ── EYEBROW ─────────────────────────────────────────────────────────────── */
+  .footer-eyebrow {
     letter-spacing: 0.12em;
     text-transform: uppercase;
     font-size: 0.78rem;
     font-weight: 700;
+    color: var(--footer-accent);
+    margin: 0 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
   }
 
-  .footer-eyebrow,
-  .footer-card-title,
-  .footer-badge,
-  .footer-cta,
-  .footer-links a:hover,
-  .footer-links a:focus-visible {
-    color: #c9894b;
-  }
-
-  .footer-intro h2 {
-    margin: 0;
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    line-height: 1.05;
-    letter-spacing: -0.04em;
-  }
-
-  .footer-description,
-  .footer-card p,
-  .footer-links a,
-  .footer-bottom p {
-    color: #c7d1db;
-    line-height: 1.75;
-    font-size: 1rem;
-  }
-
-  .footer-description {
-    margin: 1rem 0 0;
-    max-width: 58ch;
-  }
-
-  .footer-content {
+  /* ── GRID DE CARDS ───────────────────────────────────────────────────────── */
+  .footer-grid {
     display: grid;
-    grid-template-columns:  repeat(4, minmax(220px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(var(--footer-cols), 1fr); /* una sola regla centralizada */
+    gap: var(--footer-gap);
   }
 
-  .footer-brand,
   .footer-card {
-    width: 15rem;
-    min-height: 50%;
     padding: 1.75rem;
-    border-radius: 15px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--footer-radius);
+    background: linear-gradient(180deg, var(--footer-card-bg), rgba(255,255,255,0.01));
+    border: 1px solid var(--footer-border);
     box-shadow: 0 20px 50px rgba(3, 8, 12, 0.24);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
-  .marca {
-    width: 25%;
-  }
-
-
-  .footer-brand-block p,
-  .footer-highlight p {
+  /* ── TIPOGRAFÍA COMPARTIDA ───────────────────────────────────────────────── */
+  .footer-card-title {
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--footer-accent);
     margin: 0;
   }
 
-  .footer-highlight li {
-    cursor: pointer;
+  .footer-cube-title {
+    width: 1rem;
+    display: inline;
+    height: auto;
   }
 
-  a {
-    text-decoration: none;
-    color: #c7d1db;
+  .footer-card p,
+  .footer-card li,
+  .footer-card a {
+    color: var(--footer-text);
+    font-size: 1rem;
+    line-height: 1.75;
+    margin: 0;
   }
 
-  a:hover {
-    color: #c9894b;
-  } 
+  /* ── LOGO ────────────────────────────────────────────────────────────────── */
+  .footer-logo {
+    width: 100%;
+  }
 
-  .footer-badge {
+  .footer-dw-logo {
     display: inline-flex;
-    margin-top: 1.5rem;
+    align-items: center;
   }
 
-  .footer-card-title {
-    margin: 0 0 1rem;
+  .footer-dw-logo :global(svg) {
+    width: 120px;
+    height: auto;
+    display: block;
   }
 
+  /* ── LISTA DE NAVEGACIÓN ─────────────────────────────────────────────────── */
   .footer-links {
     list-style: none;
     padding: 0;
     margin: 0;
     display: grid;
     gap: 0.85rem;
+    transition: color .2s ease-in-out;
   }
 
   .footer-links a {
+    text-decoration: none;
     transition: color 180ms ease, transform 180ms ease;
+    display: inline-block;
   }
 
   .footer-links a:hover,
   .footer-links a:focus-visible {
+    color: var(--footer-accent);
     transform: translateX(2px);
   }
 
-  .footer-highlight {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
+  /* ── LISTA INFORMATIVA ───────────────────────────────────────────────────── */
+  .footer-info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
   }
 
-  .footer-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
+  .footer-info-list a {
+    text-decoration: none;
   }
 
+  .footer-info-list a:hover {
+    color: var(--footer-accent);
+  }
+
+  /* ── BARRA INFERIOR ──────────────────────────────────────────────────────── */
   .footer-bottom {
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
     flex-wrap: wrap;
+    gap: 0.5rem;
     margin-top: 1.5rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid var(--footer-border);
   }
 
-  .footer-bottom p {
+  .footer-bottom p,
+  .footer-signature {
     margin: 0;
+    color: var(--footer-text);
+    font-size: 0.9rem;
   }
 
-  
- 
+  .footer-signature {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
 
+  .footer-signature span {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+  }
+
+  .footer-bottom a {
+    color: var(--footer-text);
+    text-decoration: none;
+  }
+
+  .footer-bottom a:hover {
+    color: var(--footer-accent);
+  }
+
+  .footer-bottom small {
+    opacity: 0.55;
+    font-size: 0.78rem;
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
   @media (max-width: 900px) {
-    .footer-content {
-      grid-template-columns: 1fr;
-    }
+    :root { --footer-cols: 2; }
   }
 
-  @media (max-width: 640px) {
-    .footer-shell {
-      padding-top: 4rem;
-    }
-
-    .footer-card {
-      padding: 1.5rem;
-    }
-
+  @media (max-width: 560px) {
+    :root { --footer-cols: 1; }
     .footer-bottom {
       flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .footer-signature {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
     }
   }
 </style>

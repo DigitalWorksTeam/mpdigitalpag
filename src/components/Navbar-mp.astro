@@ -1,274 +1,218 @@
 ---
-// No necesitas código aquí por ahora
+import MPDigitalLogo from '/src/img/mpdigitallogo.svg'
 ---
 
-<header class="site-header">
-  <nav class="navbar container" aria-label="Principal">
-    <div class="navbar-header">
-      <a class="brand" href="#hero">MPD</a>
-      <button class="nav-toggle" aria-label="Expandir menú">
-        <span class="nav-toggle-icon"> <img src="/arrow.svg" alt=""></span>
-      </button>
-    </div>
-    
-    <!-- Versión expandida (textos completos) -->
-    <div class="nav-links-expanded">
-      <a href="#proveedores">Proveedores</a>
-      <a href="#vendemos">Qué vendemos</a>
-      <a href="#historia">Historia</a>
-    </div>
-  </nav>
-</header>
+<nav class="navbar" aria-label="Principal">
+  <div class="navbar-header">
+    <a class="brand" href="#"> <MPDigitalLogo class={'header-logo-hero'} /> </a>
+    <button class="nav-toggle" aria-label="Expandir menú" aria-expanded="false">
+      <img class="nav-toggle-icon" src="/arrow.svg" alt="" aria-hidden="true" />
+    </button>
+  </div>
+
+  <div class="nav-links" aria-hidden="true">
+    <a href="#proveedores"><span class="supplier-icon-nav" aria-hidden="true">✦</span> Proveedores</a>
+    <a href="#vendemos"><span class="supplier-icon-nav" aria-hidden="true">✦</span> Qué vendemos</a>
+    <a href="#historia"><span class="supplier-icon-nav" aria-hidden="true">✦</span> Historia</a>
+  </div>
+</nav>
 
 <script>
   import { gsap } from 'gsap';
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const toggleBtn = document.querySelector('.nav-toggle');
-    const navBar = document.querySelector('.navbar');
-    const navLinks = document.querySelector('.nav-links-expanded');
-    const toggleIcon = document.querySelector('.nav-toggle-icon');
-    
-    if (!toggleBtn || !navBar || !navLinks || !toggleIcon) {
-      console.log('Elementos no encontrados');
-      return;
-    }
-    
-    console.log('Navbar iniciado correctamente');
-    
-    // Estado del navbar
-    let isExpanded = true;
-    
-    // Animación de apertura/cierre
-    function animateNavbar(expand) {
-      const tl = gsap.timeline({
-        defaults: { ease: "power3.inOut", duration: 0.6 }
-      });
-      
-      if (expand) {
-        // Expandir
-        tl.to(navBar, {
-          width: "200px",
-          height: "420px",
-          borderRadius: "20px",
-          backgroundColor: "rgba(15, 23, 32, 0.6)"
+  // ── ESTADO ────────────────────────────────────────────────────────────────
+  // El navbar está oculto por defecto
+  let isExpanded = false;
+
+  // ── ELEMENTOS ─────────────────────────────────────────────────────────────
+  const navbar     = document.querySelector<HTMLElement>('.navbar');
+  const navLinks   = document.querySelector<HTMLElement>('.nav-links');
+  const toggleBtn  = document.querySelector<HTMLButtonElement>('.navbar-header');
+  const toggleIcon = document.querySelector<HTMLImageElement>('.nav-toggle-icon');
+
+  if (!navbar || !navLinks || !toggleBtn || !toggleIcon) {
+    console.warn('[Navbar] Elementos no encontrados — revisar el HTML');
+  } else {
+    // El estado inicial del navbar es preferentemente gestionado por GSAP
+    gsap.set(navbar,    { width: '256px', height: '90px' });
+    gsap.set(navLinks,  { opacity: 0, y: -8 });
+    gsap.set(toggleIcon,{ rotation: 180 });
+
+    // ── ANIMACIONES ───────────────────────────────────────────────────────
+    function expand() {
+      // Matar tweens activos para que no compitan
+      gsap.killTweensOf([navbar, navLinks, toggleIcon]);
+
+      gsap.timeline({ defaults: { ease: 'power3.inOut' } })
+        .to(navbar, {
+          height: 260,
+          backgroundColor: 'rgba(15, 23, 32, 0.6)',
+          duration: 0.55,
         })
-        .to(toggleIcon, {
-          rotation: 0,
-          duration: 0.4,
-          ease: "power2.inOut"
-        }, 0)
-        .to(navLinks, {
-          opacity: 1,
-          visibility: "visible",
-          y: 0,
-          duration: 0.4,
-          delay: 0.2
-        }, 0);
-      } else {
-        // Contraer
-        tl.to(navLinks, {
-          opacity: 0,
-          y: -10,
-          duration: 0.3,
-          onComplete: () => {
-            gsap.set(navLinks, { visibility: "hidden" });
-          }
-        })
-        .to(toggleIcon, {
-          rotation: 180,
-          duration: 0.4,
-          ease: "power2.inOut"
-        }, 0)
-        .to(navBar, {
-          width: "300px",  /* Aumentado para que quepa el brand */
-          height: "55px",
-          borderRadius: "20px",
-          backgroundColor: "rgba(15, 23, 32, 0.4)",
-          duration: 0.5,
-          delay: 0.1
-        }, 0);
-      }
+        .to(toggleIcon, { rotation: 0, duration: 0.4, ease: 'power2.inOut' }, 0)
+        .to(navLinks,   { opacity: 1, y: 0, duration: 0.35 }, '-=0.2');
+
+      navLinks?.removeAttribute('aria-hidden');
+      toggleBtn?.setAttribute('aria-expanded', 'true');
     }
 
-        // Abrir el navbar al cargar la página
-    setTimeout(() => {
-      animateNavbar(true);
-      navBar.classList.add('navbar-expanded');
-    }, 100);
-    
-    // Evento click
-    toggleBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      
+    function collapse() {
+      gsap.killTweensOf([navbar, navLinks, toggleIcon]);
+
+      gsap.timeline({ defaults: { ease: 'power3.inOut' } })
+        .to(navLinks,   { opacity: 0, y: -8, duration: 0.25 })
+        .to(toggleIcon, { rotation: 180, duration: 0.4, ease: 'power2.inOut' }, 0)
+        .to(navbar, {
+          height: 90,
+          backgroundColor: 'rgba(15, 23, 32, 0.4)',
+          duration: 0.45,
+        }, '-=0.2');
+
+      navLinks?.setAttribute('aria-hidden', 'true');
+      toggleBtn?.setAttribute('aria-expanded', 'false');
+    }
+
+    function toggle() {
       isExpanded = !isExpanded;
-      animateNavbar(isExpanded);
-      
-      if (isExpanded) {
-        navBar.classList.add('navbar-expanded');
-      } else {
-        navBar.classList.remove('navbar-expanded');
-      }
-      
-      console.log('Click detectado. Estado:', isExpanded ? 'expandido' : 'contraído');
+      isExpanded ? expand() : collapse();
+    }
+
+    // ── EVENTOS ───────────────────────────────────────────────────────────
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggle();
     });
-    
-    // Cerrar al hacer click fuera
-    document.addEventListener('click', function(e) {
-      if (isExpanded && !navBar.contains(e.target)) {
+
+    // Cerrar al hacer clic fuera
+    document.addEventListener('click', (e) => {
+      if (isExpanded && !navbar.contains(e.target as Node)) {
         isExpanded = false;
-        animateNavbar(false);
-        navBar.classList.remove('navbar-expanded');
+        collapse();
       }
     });
-    
-    // Cerrar al hacer click en links
-    const links = document.querySelectorAll('.nav-links-expanded a');
-    links.forEach(link => {
-      link.addEventListener('click', function() {
+
+    // Cerrar al navegar a una sección
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
         if (isExpanded) {
           isExpanded = false;
-          animateNavbar(false);
-          navBar.classList.remove('navbar-expanded');
+          collapse();
         }
       });
     });
-  });
+  }
 </script>
 
 <style>
-  /* 1. Contenedor Principal */
-  .site-header {
-    position: fixed;
-    inset: 1.25rem 0 auto 2rem;
-    z-index: 1000;
-    width: fit-content;
-  }
-
-  /* 2. Navbar: El cuerpo de la "Gota" */
+  /* ── TOKENS DEL NAVBAR ───────────────────────────────────────────────────
+     Edita aquí para cambiar tamaños. GSAP lee las variables en runtime.    */
   .navbar {
+    margin-left: 1.2rem;
+    /* Layout */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    
-    /* Efecto Lupa/Gota */
+
+    /* width y height son controlados de manera exclusiva por GSAP */
+    overflow: hidden;
+
+    /* Visual */
     background: rgba(15, 23, 32, 0.4);
     backdrop-filter: blur(12px) saturate(180%) brightness(1.3);
     -webkit-backdrop-filter: blur(12px) saturate(180%) brightness(1.3);
-    
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    box-shadow: 
-      inset 0 0 15px rgba(255, 255, 255, 0.39),
-      0 20px 60px rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    box-shadow:
+      inset 0 0 8px rgba(255,255,255,.08),
+      0 8px 24px -12px rgba(0,0,0,.35);
+    transition:
+      box-shadow .2s ease,
+      background-color .2s ease,
+      border-color .2s ease;
 
-    /* Dimensiones iniciales - controladas por GSAP */
-    width: 300px;  /* Aumentado para que quepa "MPD" */
-    height: 55px;
-    overflow: hidden;
   }
 
-  /* 3. Header del Navbar (Brand + Toggle juntos) */
+  .navbar:hover {
+    box-shadow:
+      inset 0 0 15px rgba(255,255,255,.08),
+      0 20px 48px -16px rgba(0,0,0,.4);
+  }
+
+  /* ── FILA SUPERIOR (brand + toggle) ─────────────────────────────────── */
   .navbar-header {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
-    padding: 0.8rem 1rem;
-    gap: 0.5rem;
+    padding: 1.2rem 1.2rem;
+    flex-shrink: 0; /* No se comprime cuando el navbar se achica */
+    gap: 1.2rem;
+    align-items: center;
   }
 
-  /* 4. Brand - SIEMPRE VISIBLE */
+  /* Brand siempre visible */
   .brand {
     font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.08em;
-    text-transform: uppercase;
     color: #f5f7fa;
-    text-decoration: none;
     white-space: nowrap;
-    opacity: 1 !important;  /* Forzar visibilidad */
-    visibility: visible !important;  /* Forzar visibilidad */
   }
 
-  /* 5. Botón Toggle con flecha - SOLO EL ICONO */
+  .header-logo-hero {
+    width: 100%;
+    height: auto;
+  }
+
+  /* ── BOTÓN TOGGLE ────────────────────────────────────────────────────── */
   .nav-toggle {
     background: none;
     border: none;
     cursor: pointer;
-    color: white;
-    width: 24px;  /* Reducido a tamaño de icono */
-    height: 24px;  /* Reducido a tamaño de icono */
+    padding: 0;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    padding: 0;
-    font-size: 0;  /* Eliminar cualquier espacio */
   }
 
   .nav-toggle-icon {
-    font-size: 1.4rem;  /* Tamaño del icono */
-    line-height: 1;
-    display: inline-block;
-    transform: rotate(0deg);
-    color: white;
-    font-weight: 300;
     width: 20px;
     height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     /* La rotación la maneja GSAP */
   }
 
-  .nav-toggle-icon img {
-        width: 30px;    
-        height: 30px;   
-        display: block;
-    }
-
-  /* 6. Links Expandidos */
-  .nav-links-expanded {
+  /* ── LINKS ───────────────────────────────────────────────────────────── */
+  .nav-links {
     display: flex;
     flex-direction: column;
-    align-items:flex-start;
-    margin-left: 4rem;
-    margin-top: 2rem;
-    gap: 6rem;
-    padding: 0.5rem 0 1.5rem;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 0.5rem 1.25rem 1.5rem;
     width: 100%;
-    
-    /* Estado inicial oculto - controlado por GSAP */
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    /* La animación la maneja GSAP */
+
+    /* opacity y transform gestionados por GSAP */
   }
 
-  .nav-links-expanded a {
+  .nav-links a {
     color: rgba(245, 247, 250, 0.82);
-    text-decoration: none;
     font-size: 0.96rem;
     white-space: nowrap;
-    transition: color 0.3s ease;
+    transition: color 180ms ease-in-out;
   }
 
-  .nav-links-expanded a:hover {
-    color: #fff;
+  .nav-links a:hover {
+    color: var(--brand-copper);
   }
 
-  /* Media query para móviles */
+  /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
   @media (max-width: 640px) {
-    .site-header {
-      left: 1rem;
-      top: 1rem;
-    }
-    
     .navbar {
-      width: 100px;  /* Mantener el mismo ancho en móvil */
+      --navbar-width-closed: 160px;
+      --navbar-width-open:   160px;
     }
   }
 </style>
