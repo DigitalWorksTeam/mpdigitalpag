@@ -1,0 +1,25 @@
+:root {
+  /** CSS PARA COOKIECONSENT */
+  --cc-bg: #1b2633;
+  --cc-primary-color: #ffffff;
+  --cc-secondary-color: #d8dde5;
+
+  --cc-btn-primary-bg: #c58a42;
+  --cc-btn-primary-color: #ffffff;
+  --cc-btn-primary-hover-bg: #b77c34;
+
+  --cc-btn-secondary-bg: transparent;
+  --cc-btn-secondary-color: #c58a42;
+  --cc-btn-secondary-hover-color: #e29f5b;
+  --cc-btn-secondary-hover-bg: transparent;
+
+  --cc-footer-bg: rgb(23, 31, 39);
+
+  /* Separadores y toggles */
+  --cc-separator-border-color: rgba(0, 0, 0, 0);
+  --cc-toggle-on-bg: #c58a42;
+}
+
+#cc-main .cm__footer {
+  border-top-color: rgba(255,255,255,.12);
+}
