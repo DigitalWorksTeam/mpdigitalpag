@@ -2,72 +2,120 @@
 import MPDigitalLogo from '/src/img/mpdigitallogo.svg'
 ---
 
-<nav class="navbar" aria-label="Principal">
-  <div class="navbar-header">
-    <a class="brand" href="#"> <MPDigitalLogo class={'header-logo-hero'} /> </a>
-    <button class="nav-toggle" aria-label="Expandir menú" aria-expanded="false">
-      <img class="nav-toggle-icon" src="/arrow.svg" alt="" aria-hidden="true" />
+<!--
+  .navbar, .nav-links, .nav-toggle-icon — preservadas para GSAP
+  width/height del navbar son controlados exclusivamente por GSAP
+-->
+<nav
+  class="navbar
+         ml-5 flex flex-col items-center overflow-hidden
+         bg-mp-navy-900/40
+         [backdrop-filter:blur(12px)_saturate(180%)_brightness(1.3)]
+         [-webkit-backdrop-filter:blur(12px)_saturate(180%)_brightness(1.3)]
+         border border-white/10 rounded-2xl
+         shadow-[inset_0_0_8px_rgba(255,255,255,0.08),0_8px_24px_-12px_rgba(0,0,0,0.35)]
+         transition-[box-shadow,background-color,border-color] duration-200 ease-out
+         hover:shadow-[inset_0_0_15px_rgba(255,255,255,0.08),0_20px_48px_-16px_rgba(0,0,0,0.4)]"
+  aria-label="Principal"
+>
+
+  <!-- Fila superior: logo + toggle — el div completo es el toggleBtn para GSAP -->
+  <div
+    class="navbar-header
+           flex items-center justify-between w-full shrink-0
+           gap-[1.2rem] px-[1.2rem] py-[1.2rem] cursor-pointer"
+  >
+    <a
+      class="text-base font-bold tracking-[0.08em] text-mp-slate-50 whitespace-nowrap"
+      href="#"
+    >
+      <MPDigitalLogo class="w-full h-auto" />
+    </a>
+
+    <button
+      class="nav-toggle
+             bg-transparent border-0 cursor-pointer p-0
+             w-6 h-6 flex items-center justify-center shrink-0"
+      aria-label="Expandir menú"
+      aria-expanded="false"
+    >
+      <img
+        class="nav-toggle-icon w-5 h-5 block"
+        src="/arrow.svg"
+        alt=""
+        aria-hidden="true"
+      />
     </button>
   </div>
 
-  <div class="nav-links" aria-hidden="true">
-    <a href="#proveedores"><span class="supplier-icon-nav" aria-hidden="true">✦</span> Proveedores</a>
-    <a href="#vendemos"><span class="supplier-icon-nav" aria-hidden="true">✦</span> Qué vendemos</a>
-    <a href="#historia"><span class="supplier-icon-nav" aria-hidden="true">✦</span> Historia</a>
+  <!-- Links: opacity y transform gestionados por GSAP -->
+  <div
+    class="nav-links
+           flex flex-col items-start gap-6
+           pt-2 pb-6 px-5 w-full"
+    aria-hidden="true"
+  >
+    <a
+      href="#proveedores"
+      class="text-mp-slate-50/80 text-[0.96rem] whitespace-nowrap
+             transition-colors duration-180 ease-in-out
+             hover:text-mp-copper-500"
+    >
+      <span class="text-mp-copper-500" aria-hidden="true">✦</span> Proveedores
+    </a>
+    <a
+      href="#vendemos"
+      class="text-mp-slate-50/80 text-[0.96rem] whitespace-nowrap
+             transition-colors duration-180 ease-in-out
+             hover:text-mp-copper-500"
+    >
+      <span class="text-mp-copper-500" aria-hidden="true">✦</span> Qué vendemos
+    </a>
+    <a
+      href="#historia"
+      class="text-mp-slate-50/80 text-[0.96rem] whitespace-nowrap
+             transition-colors duration-180 ease-in-out
+             hover:text-mp-copper-500"
+    >
+      <span class="text-mp-copper-500" aria-hidden="true">✦</span> Historia
+    </a>
   </div>
+
 </nav>
 
 <script>
   import { gsap } from 'gsap';
 
-  // ── ESTADO ────────────────────────────────────────────────────────────────
-  // El navbar está oculto por defecto
   let isExpanded = false;
 
-  // ── ELEMENTOS ─────────────────────────────────────────────────────────────
   const navbar     = document.querySelector<HTMLElement>('.navbar');
   const navLinks   = document.querySelector<HTMLElement>('.nav-links');
-  const toggleBtn  = document.querySelector<HTMLButtonElement>('.navbar-header');
+  const toggleBtn  = document.querySelector<HTMLElement>('.navbar-header');
   const toggleIcon = document.querySelector<HTMLImageElement>('.nav-toggle-icon');
 
   if (!navbar || !navLinks || !toggleBtn || !toggleIcon) {
     console.warn('[Navbar] Elementos no encontrados — revisar el HTML');
   } else {
-    // El estado inicial del navbar es preferentemente gestionado por GSAP
-    gsap.set(navbar,    { width: '256px', height: '90px' });
-    gsap.set(navLinks,  { opacity: 0, y: -8 });
-    gsap.set(toggleIcon,{ rotation: 180 });
+    gsap.set(navbar,     { width: '256px', height: '90px' });
+    gsap.set(navLinks,   { opacity: 0, y: -8 });
+    gsap.set(toggleIcon, { rotation: 180 });
 
-    // ── ANIMACIONES ───────────────────────────────────────────────────────
     function expand() {
-      // Matar tweens activos para que no compitan
       gsap.killTweensOf([navbar, navLinks, toggleIcon]);
-
       gsap.timeline({ defaults: { ease: 'power3.inOut' } })
-        .to(navbar, {
-          height: 260,
-          backgroundColor: 'rgba(15, 23, 32, 0.6)',
-          duration: 0.55,
-        })
-        .to(toggleIcon, { rotation: 0, duration: 0.4, ease: 'power2.inOut' }, 0)
+        .to(navbar,     { height: 260, backgroundColor: 'rgba(15,23,32,0.6)', duration: 0.55 })
+        .to(toggleIcon, { rotation: 0,   duration: 0.4, ease: 'power2.inOut' }, 0)
         .to(navLinks,   { opacity: 1, y: 0, duration: 0.35 }, '-=0.2');
-
       navLinks?.removeAttribute('aria-hidden');
       toggleBtn?.setAttribute('aria-expanded', 'true');
     }
 
     function collapse() {
       gsap.killTweensOf([navbar, navLinks, toggleIcon]);
-
       gsap.timeline({ defaults: { ease: 'power3.inOut' } })
         .to(navLinks,   { opacity: 0, y: -8, duration: 0.25 })
         .to(toggleIcon, { rotation: 180, duration: 0.4, ease: 'power2.inOut' }, 0)
-        .to(navbar, {
-          height: 90,
-          backgroundColor: 'rgba(15, 23, 32, 0.4)',
-          duration: 0.45,
-        }, '-=0.2');
-
+        .to(navbar,     { height: 90, backgroundColor: 'rgba(15,23,32,0.4)', duration: 0.45 }, '-=0.2');
       navLinks?.setAttribute('aria-hidden', 'true');
       toggleBtn?.setAttribute('aria-expanded', 'false');
     }
@@ -77,13 +125,8 @@ import MPDigitalLogo from '/src/img/mpdigitallogo.svg'
       isExpanded ? expand() : collapse();
     }
 
-    // ── EVENTOS ───────────────────────────────────────────────────────────
-    toggleBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggle();
-    });
+    toggleBtn.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
 
-    // Cerrar al hacer clic fuera
     document.addEventListener('click', (e) => {
       if (isExpanded && !navbar.contains(e.target as Node)) {
         isExpanded = false;
@@ -91,128 +134,10 @@ import MPDigitalLogo from '/src/img/mpdigitallogo.svg'
       }
     });
 
-    // Cerrar al navegar a una sección
     navLinks.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
-        if (isExpanded) {
-          isExpanded = false;
-          collapse();
-        }
+        if (isExpanded) { isExpanded = false; collapse(); }
       });
     });
   }
 </script>
-
-<style>
-  /* ── TOKENS DEL NAVBAR ───────────────────────────────────────────────────
-     Edita aquí para cambiar tamaños. GSAP lee las variables en runtime.    */
-  .navbar {
-    margin-left: 1.2rem;
-    /* Layout */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    /* width y height son controlados de manera exclusiva por GSAP */
-    overflow: hidden;
-
-    /* Visual */
-    background: rgba(15, 23, 32, 0.4);
-    backdrop-filter: blur(12px) saturate(180%) brightness(1.3);
-    -webkit-backdrop-filter: blur(12px) saturate(180%) brightness(1.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    box-shadow:
-      inset 0 0 8px rgba(255,255,255,.08),
-      0 8px 24px -12px rgba(0,0,0,.35);
-    transition:
-      box-shadow .2s ease,
-      background-color .2s ease,
-      border-color .2s ease;
-
-  }
-
-  .navbar:hover {
-    box-shadow:
-      inset 0 0 15px rgba(255,255,255,.08),
-      0 20px 48px -16px rgba(0,0,0,.4);
-  }
-
-  /* ── FILA SUPERIOR (brand + toggle) ─────────────────────────────────── */
-  .navbar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 1.2rem 1.2rem;
-    flex-shrink: 0; /* No se comprime cuando el navbar se achica */
-    gap: 1.2rem;
-    align-items: center;
-  }
-
-  /* Brand siempre visible */
-  .brand {
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: #f5f7fa;
-    white-space: nowrap;
-  }
-
-  .header-logo-hero {
-    width: 100%;
-    height: auto;
-  }
-
-  /* ── BOTÓN TOGGLE ────────────────────────────────────────────────────── */
-  .nav-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .nav-toggle-icon {
-    width: 20px;
-    height: 20px;
-    display: block;
-    /* La rotación la maneja GSAP */
-  }
-
-  /* ── LINKS ───────────────────────────────────────────────────────────── */
-  .nav-links {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
-    padding: 0.5rem 1.25rem 1.5rem;
-    width: 100%;
-
-    /* opacity y transform gestionados por GSAP */
-  }
-
-  .nav-links a {
-    color: rgba(245, 247, 250, 0.82);
-    font-size: 0.96rem;
-    white-space: nowrap;
-    transition: color 180ms ease-in-out;
-  }
-
-  .nav-links a:hover {
-    color: var(--brand-copper);
-  }
-
-  /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
-  @media (max-width: 640px) {
-    .navbar {
-      --navbar-width-closed: 160px;
-      --navbar-width-open:   160px;
-    }
-  }
-</style>

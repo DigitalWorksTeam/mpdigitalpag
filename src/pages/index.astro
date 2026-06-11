@@ -3,51 +3,41 @@ import '../styles/global.css';
 import NavbarMp from "../components/Navbar-mp.astro";
 import FooterMp from "../components/Footer-mp.astro";
 
-
 const supplierPoints = [
   {
     title: 'Disponibilidad real',
-    description:
-      'Evaluamos proveedores según stock, tiempos y condiciones en cada proceso.',
+    description: 'Evaluamos proveedores según stock, tiempos y condiciones en cada proceso.',
   },
   {
     title: 'Criterio sobre catálogo',
-    description:
-      'Priorizamos la opción más adecuada para cumplir con el requerimiento, no una base predefinida',
+    description: 'Priorizamos la opción más adecuada para cumplir con el requerimiento, no una base predefinida',
   },
   {
     title: 'Continuidad operativa',
-    description:
-      'Mantenemos relaciones activas que permiten dar estabilidad y respuesta sostenida.',
+    description: 'Mantenemos relaciones activas que permiten dar estabilidad y respuesta sostenida.',
   },
   {
     title: 'Flexibilidad comercial',
-    description:
-      'Nos adaptamos a las condiciones de cada proceso para responder de forma oportuna.',
+    description: 'Nos adaptamos a las condiciones de cada proceso para responder de forma oportuna.',
   },
-
 ];
 
 const productCards = [
   {
     title: 'Hardware',
-    description:
-      'Componentes y equipamiento asociado a infraestructura tecnológica.',
+    description: 'Componentes y equipamiento asociado a infraestructura tecnológica.',
   },
   {
     title: 'Tecnología',
-    description:
-      'Equipos, periféricos y soluciones necesarias para la operación digital.',
+    description: 'Equipos, periféricos y soluciones necesarias para la operación digital.',
   },
   {
     title: 'Insumos de oficina',
-    description:
-      'Papelería, tóners y productos de uso diario institucional.',
+    description: 'Papelería, tóners y productos de uso diario institucional.',
   },
-    {
+  {
     title: 'Requerimientos especiales',
-    description:
-      'Cuando una compra incluye productos fuera de estas líneas, gestionamos su abastecimiento a través de proveedores asociados.',
+    description: 'Cuando una compra incluye productos fuera de estas líneas, gestionamos su abastecimiento a través de proveedores asociados.',
   },
 ];
 
@@ -61,42 +51,38 @@ const storyBullets = [
 <html lang="es-CL">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
 
     <title>MP Digital | Abastecimiento corporativo confiable</title>
-
-    <meta
-      name="description"
-      content="MP Digital conecta abastecimiento confiable, criterio comercial y una operación preparada para crecer."
-    />
+    <meta name="description" content="MP Digital conecta abastecimiento confiable, criterio comercial y una operación preparada para crecer." />
 
     <link rel="canonical" href="https://mpdigital.cl/" />
-    <meta name="robots" content="index,follow,max-image-preview:large" />
-    <meta name="author" content="MP Digital" />
+    <meta name="robots"  content="index,follow,max-image-preview:large" />
+    <meta name="author"  content="MP Digital" />
     <meta name="theme-color" content="#1b2633" />
 
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon"            href="/favicon.ico" sizes="any" />
+    <link rel="icon"            type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="mask-icon" href="/favicon.svg" color="#1b2633" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon"       href="/favicon.svg" color="#1b2633" />
+    <link rel="manifest"        href="/site.webmanifest" />
 
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://mpdigital.cl/" />
-    <meta property="og:locale" content="es_CL" />
-    <meta property="og:site_name" content="MP Digital" />
-    <meta property="og:title" content="MP Digital | Gestión comercial para Mercado Público" />
-    <meta property="og:description" content="Gestión comercial y abastecimiento para Mercado Público con foco en cumplimiento y continuidad operativa." />
-    <meta property="og:image" content="https://mpdigital.cl/hero-corporate-thumb.png" />
-    <meta property="og:image:width" content="1200" />
+    <meta property="og:type"         content="website" />
+    <meta property="og:url"          content="https://mpdigital.cl/" />
+    <meta property="og:locale"       content="es_CL" />
+    <meta property="og:site_name"    content="MP Digital" />
+    <meta property="og:title"        content="MP Digital | Gestión comercial para Mercado Público" />
+    <meta property="og:description"  content="Gestión comercial y abastecimiento para Mercado Público con foco en cumplimiento y continuidad operativa." />
+    <meta property="og:image"        content="https://mpdigital.cl/hero-corporate-thumb.png" />
+    <meta property="og:image:width"  content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="MP Digital, gestión comercial para Mercado Público" />
+    <meta property="og:image:alt"    content="MP Digital, gestión comercial para Mercado Público" />
 
-    <meta property="twitter:title" content="MP Digital | Gestión comercial para Mercado Público" />
+    <meta property="twitter:title"       content="MP Digital | Gestión comercial para Mercado Público" />
     <meta property="twitter:description" content="Operamos procesos de venta y abastecimiento para el Estado con estructura y foco en resultados." />
-    <meta property="twitter:image" content="https://mpdigital.cl/hero-corporate-thumb.png" />
-    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:image"       content="https://mpdigital.cl/hero-corporate-thumb.png" />
+    <meta property="twitter:card"        content="summary_large_image" />
 
     <script type="application/ld+json">
     {
@@ -111,125 +97,251 @@ const storyBullets = [
     <script type="text/plain" data-category="analytics" data-service="Google Analytics">
       console.log("MP Digital");
     </script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.1.0/dist/cookieconsent.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.1.0/dist/cookieconsent.css" />
   </head>
+
   <body>
-    <header class="site-header">
-      <NavbarMp/>
+
+    <!-- ── HEADER ─────────────────────────────────────────────────────────── -->
+    <header class="fixed inset-x-0 top-0 z-20 pt-5 max-sm:pt-3">
+      <NavbarMp />
     </header>
 
     <main>
-      <section class="hero" id="hero">
-        <div class="hero-media-wrap" aria-hidden="true">
+
+      <!-- ════════════════════════════════════════════════════════════════════
+           HERO
+      ═════════════════════════════════════════════════════════════════════ -->
+      <section
+        class="relative min-h-svh overflow-clip isolate bg-mp-navy-900"
+        id="hero"
+      >
+        <!-- Imagen de fondo -->
+        <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
           <img
-            class="hero-media"
+            class="hero-media w-full h-full object-cover object-center origin-center will-change-transform"
             src="/hero-corporate.png"
             alt=""
             loading="eager"
             decoding="async"
           />
-          <div class="hero-overlay"></div>
         </div>
 
-        <div class="hero-content container">
-          <p class="eyebrow hero-copy">Eficiencia comercial en Mercado Público</p>
-          <h1 class="hero-title hero-copy">
+        <!-- Contenido -->
+        <div class="container-mp relative z-10 min-h-svh flex flex-col justify-center max-sm:py-36 max-sm:pb-20">
+
+          <p class="hero-copy opacity-0
+                    mb-4 tracking-[0.12em] uppercase text-[0.82rem] font-bold">
+            Eficiencia comercial en Mercado Público
+          </p>
+
+          <h1 class="hero-copy opacity-0
+                     text-hero-title max-w-[16ch] m-0
+                     leading-[1.05] tracking-[-0.04em]
+                     max-sm:max-w-[10ch] font-bold">
             Gestionamos ventas al Estado con foco en cumplimiento y resultados.
           </h1>
-          <p class="hero-description hero-copy">
+
+          <p class="hero-copy opacity-0
+                    mt-6 text-[1.05rem] leading-7 font-medium max-w-[60ch]
+                    text-mp-slate-200">
             Agilizamos el proceso comercial para responder mejor y concretar más oportunidades.
           </p>
-          <div class="hero-actions hero-copy">
-            <a class="button-primary" href="#vendemos">Ver soluciones</a>
-            <a class="button-secondary" href="#historia">Nuestra historia</a>
+
+          <div class="hero-copy opacity-0
+                      flex flex-wrap gap-4 mt-8
+                      max-sm:flex-col max-sm:items-stretch">
+            <a
+              href="#vendemos"
+              class="inline-flex items-center justify-center rounded-[10px]
+                     bg-mp-copper-500 text-mp-slate-50
+                     px-[1.35rem] py-[0.85rem] font-semibold
+                     transition-colors duration-180
+                     hover:bg-mp-copper-400
+                     max-sm:w-full"
+            >
+              Ver soluciones
+            </a>
+            <a
+              href="#historia"
+              class="inline-flex items-center justify-center rounded-[10px]
+                     border border-[rgba(245,247,250,0.18)]
+                     px-[1.35rem] py-[0.85rem] text-[rgba(245,247,250,0.952)]
+                     transition-[color,box-shadow] duration-180
+                     hover:text-white hover:shadow-[inset_0_0_15px_rgba(255,255,255,0.39),0_20px_60px_rgba(0,0,0,0.2)]
+                     max-sm:w-full"
+            >
+              Nuestra historia
+            </a>
           </div>
+
         </div>
       </section>
 
-      <section class="section section-dark" id="proveedores">
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow copper">Selección y gestión de proveedores</p>
-            <h2>Cómo operamos con proveedores</h2>
-            <p>
+
+      <!-- ════════════════════════════════════════════════════════════════════
+           PROVEEDORES
+      ═════════════════════════════════════════════════════════════════════ -->
+      <section class="section-padding bg-mp-navy-700" id="proveedores">
+        <div class="container-mp">
+
+          <!-- Encabezado -->
+          <div class="max-w-190 mb-10">
+            <p class="mb-4 tracking-[0.12em] uppercase font-extrabold
+                      text-mp-copper-500">
+              Selección y gestión de proveedores
+            </p>
+            <h2 class="text-section-h2 leading-[1.05] tracking-[-0.04em] m-0 mb-4 font-bold">
+              Cómo operamos con proveedores
+            </h2>
+            <p class="text-[1.05rem] leading-7 text-mp-slate-200">
               No trabajamos con un catálogo fijo. Seleccionamos proveedores según disponibilidad real, tiempos de respuesta y capacidad de cumplimiento.
             </p>
           </div>
 
-          <div class="supplier-panel">
+          <!-- Panel 2×2 -->
+          <div
+            class="grid grid-cols-2 max-[960px]:grid-cols-1
+                   gap-5 p-5 rounded-3xl
+                   [background:linear-gradient(145deg,rgba(27,38,51,0.9),rgba(15,23,32,0.95))]
+                   border border-[rgba(201,137,75,0.12)]
+                   shadow-[0_20px_60px_rgba(4,10,15,0.3)]"
+          >
             {supplierPoints.map((point) => (
-              <article class="supplier-item">
-                <span class="supplier-icon" aria-hidden="true">✦</span>
-                <h3>{point.title}</h3>
-                <p>{point.description}</p>
+              <article
+                class="supplier-item relative p-7 max-sm:p-6
+                       max-[960px]:border-b max-[960px]:border-[rgba(201,137,75,0.25)]
+                       max-[960px]:last:border-b-0"
+              >
+                <span class="inline-flex text-[1.15rem] mb-5 text-mp-copper-500" aria-hidden="true">✦</span>
+                <h3 class="text-[1.32rem] leading-[1.2] m-0 mb-3 font-bold">{point.title}</h3>
+                <p class="text-[1.05rem] leading-7 text-mp-slate-200 m-0">
+                  {point.description}
+                </p>
               </article>
             ))}
           </div>
 
-          <!-- Bloque de nota: layout propio, no hereda supplier-panel -->
-          <aside class="supplier-note">
-            <h3>Relación con proveedores</h3>
-            <p>
+          <!-- Nota -->
+          <aside
+            class="mt-5 px-10 py-7 rounded-2xl text-center
+                   bg-mp-navy-900
+                   border border-[rgba(201,137,75,0.12)]"
+          >
+            <h3 class="mt-0 mb-3 tracking-widest uppercase text-[0.78rem] font-bold
+                       text-mp-copper-500">
+              Relación con proveedores
+            </h3>
+            <p class="m-0 mx-auto max-w-[64ch] text-mp-slate-200 text-base leading-7">
               Buscamos construir relaciones de trabajo estables con proveedores que quieran crecer en el mercado público.
               Operamos absorbiendo los tiempos de pago del sistema, permitiendo pagos más inmediatos y continuidad operativa.
             </p>
           </aside>
+
         </div>
       </section>
 
-      <section class="section section-light" id="vendemos">
-        <div class="container">
-          <div class="section-heading narrow">
-            <p class="eyebrow muted">Qué abastecemos</p>
-            <h2>Tecnología y abastecimiento operativo para el Estado</h2>
-            <p>
-              Nos enfocamos en tecnología, hardware e insumos de oficina. <br>Cuando el proceso lo requiere, gestionamos requerimientos complementarios sin afectar el cumplimiento.
+
+      <!-- ════════════════════════════════════════════════════════════════════
+           QUÉ VENDEMOS
+      ═════════════════════════════════════════════════════════════════════ -->
+      <section class="section-padding bg-mp-light-50 text-[#16202b]" id="vendemos">
+        <div class="container-mp">
+
+          <!-- Encabezado -->
+          <div class="max-w-180 mb-10">
+            <p class="mb-4 tracking-[0.12em] uppercase font-bold text-[#5d7284]">
+              Qué abastecemos
             </p>
-            <h3>Priorizamos el cumplimiento del proceso por sobre la rigidez del catálogo.</h3>
+            <h2 class="text-section-h2 leading-[1.05] tracking-[-0.04em] m-0 mb-4 font-bold">
+              Tecnología y abastecimiento operativo para el Estado
+            </h2>
+            <p class="text-[1.05rem] leading-7 text-[#506071] mb-5">
+              Nos enfocamos en tecnología, hardware e insumos de oficina.<br />
+              Cuando el proceso lo requiere, gestionamos requerimientos complementarios sin afectar el cumplimiento.
+            </p>
+            <h3 class="text-lg font-bold leading-[1.2] text-[#16202b]">
+              Priorizamos el cumplimiento del proceso por sobre la rigidez del catálogo.
+            </h3>
           </div>
 
-          <div class="product-grid">
-            {productCards.map((card) => (
-              <article class="product-card">
-                <div class="product-accent"></div>
-                <h3>{card.title}</h3>
-                <p>{card.description}</p>
+          <!-- Grid de productos -->
+          <div class="grid grid-cols-3 max-[960px]:grid-cols-1 gap-5">
+            {productCards.map((card, i) => (
+              <article
+                class:list={[
+                  "relative overflow-hidden bg-white rounded-[20px] p-8 max-sm:p-6",
+                  "shadow-[0_10px_30px_rgba(0,0,0,0.05)]",
+                  "border-b-2 border-transparent",
+                  "transition-[transform,border-color,box-shadow] duration-180 ease-out",
+                  "hover:-translate-y-1 hover:border-mp-copper-500 hover:shadow-[0_18px_36px_rgba(0,0,0,0.08)]",
+                  "focus-within:-translate-y-1 focus-within:border-mp-copper-500",
+                  i === productCards.length - 1 ? "col-span-full" : "",
+                ]}
+              >
+                <div class="w-11 h-[0.24rem] rounded-full bg-[rgba(201,137,75,0.85)] mb-6"></div>
+                <h3 class="text-[1.32rem] leading-[1.2] m-0 mb-3 font-bold">{card.title}</h3>
+                <p class="text-[1.05rem] leading-7 text-[#506071] m-0">{card.description}</p>
               </article>
             ))}
           </div>
+
         </div>
       </section>
 
-      <section class="section section-story" id="historia">
-        <div class="container">
-        <div class="story-grid">
-          <div class="section-heading story-copy">
-            <p class="eyebrow copper">Nuestra historia</p>
-            <h2>Gestión estructurada para la operación en Mercado Público</h2>
-                          <p>
-                          MP Digital nace desde la experiencia directa en procesos de venta y abastecimiento en Mercado Público.
 
-              Con el tiempo entendimos cómo se sostiene realmente una operación: cómo se toman decisiones, cómo se gestionan los tiempos y qué permite dar continuidad sin depender de la improvisación.
+      <!-- ════════════════════════════════════════════════════════════════════
+           HISTORIA
+      ═════════════════════════════════════════════════════════════════════ -->
+      <section class="section-padding bg-mp-navy-900" id="historia">
+        <div class="container-mp">
 
-              Ese aprendizaje nos llevó a estructurar una forma de trabajo clara, enfocada en cumplir y sostener resultados en el tiempo.  
+          <!-- story-grid: columnas mixtas definidas en global.css -->
+          <div class="story-grid">
 
-              <br><br>Hoy operamos con una base técnica y una mirada práctica del mercado, entendiendo tanto al comprador como al proceso completo.
-            </p>
-            <p class="story-note">
-              Parte de <span> <a href="https://digitalworks.cl/" target="_blank">DigitalWorks</a> </span>, donde desarrollamos soluciones tecnológicas y procesos para empresas en crecimiento.
-            </p>
+            <!-- Copy -->
+            <div class="max-w-190 mb-10">
+              <p class="mb-4 tracking-[0.12em] uppercase font-bold
+                        text-mp-copper-500">
+                Nuestra historia
+              </p>
+              <h2 class="text-section-h2 leading-[1.05] tracking-[-0.04em] m-0 mb-4 font-bold">
+                Gestión estructurada para la operación en Mercado Público
+              </h2>
+              <p class="text-[1.05rem] leading-7 text-mp-slate-200">
+                MP Digital nace desde la experiencia directa en procesos de venta y abastecimiento en Mercado Público.
+
+                Con el tiempo entendimos cómo se sostiene realmente una operación: cómo se toman decisiones, cómo se gestionan los tiempos y qué permite dar continuidad sin depender de la improvisación.
+
+                Ese aprendizaje nos llevó a estructurar una forma de trabajo clara, enfocada en cumplir y sostener resultados en el tiempo.
+
+                <br /><br />Hoy operamos con una base técnica y una mirada práctica del mercado, entendiendo tanto al comprador como el proceso completo.
+              </p>
+              <p class="mt-6 text-mp-slate-400 text-[1.05rem] leading-7">
+                Parte de <span class="text-mp-story-link font-semibold">
+                  <a href="https://digitalworks.cl/" target="_blank" class="hover:underline">DigitalWorks</a>
+                </span>, donde desarrollamos soluciones tecnológicas y procesos para empresas en crecimiento.
+              </p>
+            </div>
+
+            <!-- Panel lateral -->
+            <!-- story-panel referenciado en global.css para li::marker -->
+            <div
+              class="story-panel p-8 max-sm:p-6 rounded-3xl
+                     [background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))]
+                     border border-white/[0.07]"
+            >
+              <ul class="m-0 pl-5 grid gap-4">
+                {storyBullets.map((item) => (
+                  <li class="text-[1.05rem] leading-7 text-mp-slate-200 list-disc">{item}</li>
+                ))}
+              </ul>
+            </div>
+
           </div>
-
-          <div class="story-panel">
-            <ul>
-              {storyBullets.map((item) => (
-                <li>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </div><!-- /story-grid -->
-        </div><!-- /container -->
+        </div>
       </section>
+
     </main>
 
     <FooterMp />
@@ -238,24 +350,13 @@ const storyBullets = [
       import { gsap } from 'gsap';
 
       const runHeroAnimation = () => {
-        const heroImage = document.querySelector('.hero-media');
+        const heroImage  = document.querySelector('.hero-media');
         const heroCopies = document.querySelectorAll('.hero-copy');
-
         if (!heroImage || !heroCopies.length) return;
 
         const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-        tl.fromTo(
-          heroImage, 
-          { scale: 1, opacity: 0 }, 
-          { scale: 1.08, opacity: 1, duration: 2.8 }
-        );
-
-        tl.fromTo(
-          heroCopies,
-          { y: 0, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1, stagger: 0.12 },
-          '-=1.1'
-        );
+        tl.fromTo(heroImage,  { scale: 1, opacity: 0 }, { scale: 1.08, opacity: 1, duration: 2.8 });
+        tl.fromTo(heroCopies, { y: 0, opacity: 0 },     { y: 0, opacity: 1, duration: 1, stagger: 0.12 }, '-=1.1');
       };
 
       if (document.readyState === 'loading') {
