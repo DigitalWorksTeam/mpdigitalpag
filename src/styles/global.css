@@ -133,3 +133,26 @@
   /* :global(svg) — patrón de scoping de Astro */
   .footer-dw-logo :global(svg) { width: 120px; height: auto; display: block; }
 }
+
+@layer utilities {
+
+  /**
+  * Debug de todas las estructuras y sus descendientes
+  * No debe llegar nunca a producción
+  */
+  .debug {
+    @apply outline-1 outline-purple-500;
+  }
+
+  .debug > * {
+    @apply outline-1 outline-red-500;
+  }
+
+  .debug * * {
+    @apply outline-1 outline-green-500;
+  }
+
+  .debug * * * {
+    @apply outline-1 outline-blue-500;
+  }
+}

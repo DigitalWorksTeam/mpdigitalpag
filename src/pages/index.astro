@@ -1,7 +1,14 @@
 ---
-import '../styles/global.css';
-import NavbarMp from "../components/Navbar-mp.astro";
-import FooterMp from "../components/Footer-mp.astro";
+import '../styles/global.css'
+import NavbarMp       from "../components/Navbar-mp.astro"
+import FooterMp       from "../components/Footer-mp.astro"
+
+import DWLogo         from '/src/img/dwlogo.svg'
+import MPDigitalLogo  from '/src/img/mpdigitallogo.svg'
+import HexaCube       from '/src/img/hexacube.svg'
+
+// Nuestros queridos colaboradores
+import AdobeLogo      from '/src/img/partner-logo/adobeReseller.svg'
 
 const supplierPoints = [
   {
@@ -20,6 +27,18 @@ const supplierPoints = [
     title: 'Flexibilidad comercial',
     description: 'Nos adaptamos a las condiciones de cada proceso para responder de forma oportuna.',
   },
+];
+
+const features = [
+  {
+    icon: AdobeLogo
+  },
+  {
+    icon: DWLogo
+  },
+  // {
+  //   icon: DWLogo
+  // }
 ];
 
 const productCards = [
@@ -241,6 +260,47 @@ const storyBullets = [
         </div>
       </section>
 
+      <!-- ════════════════════════════════════════════════════════════════════
+        PARTNERS
+      ═════════════════════════════════════════════════════════════════════ -->
+
+      <section class="section-padding bg-mp-navy-900 bg-[url(bg-pattern.avif)] bg-repeat">
+        <div class="container-mp grid grid-rows-[auto_1fr] md:grid-cols-2 gap-12 md:gap-0">
+          
+          <div class="row-span-1 md:col-span-1 md:row-span-0 flex justify-center lg:justify-start items-center">
+            <h2 class="text-3xl lg:text-5xl leading-loose font-bold text-center text-mp-copper-400">
+              <HexaCube class="w-8 md:w-14 h-auto inline mr-2" />
+              Somos partners
+            </h2>
+          </div>
+
+          <div class="
+            flex gap-8 justify-center row-span-1 md:col-span-1 md:row-span-0 flex-col items-center lg:items-end
+          ">
+
+            {features.map((feature) => {
+
+              const Icon = feature.icon
+
+              return (
+                <article class:list={[ "w-full md:w-3/4", "flex flex-col justify-center",
+                  "p-7 rounded-[15px]",
+                  "[background:linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.01))]",
+                  "border border-white/8" , "shadow-[0_20px_50px_rgba(3,8,12,0.24)]" , "hover:-translate-y-0.5" , "group",
+                  "hover:scale-102" , "transition"
+                ]}>
+
+                  <div class="flex justify-center items-center px-4 transition-transform">
+                    <Icon class="w-full h-auto" />
+                  </div>
+                </article>
+              )
+            })}
+
+          </div>
+
+        </div>
+      </section>
 
       <!-- ════════════════════════════════════════════════════════════════════
            QUÉ VENDEMOS
@@ -293,7 +353,7 @@ const storyBullets = [
       <!-- ════════════════════════════════════════════════════════════════════
            HISTORIA
       ═════════════════════════════════════════════════════════════════════ -->
-      <section class="section-padding bg-mp-navy-900" id="historia">
+      <section class="section-padding bg-mp-navy-900 bg-[url(/bg-pattern.avif)] bg-repeat" id="historia">
         <div class="container-mp">
 
           <!-- story-grid: columnas mixtas definidas en global.css -->
